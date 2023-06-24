@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { AppBar, Toolbar, Typography, styled } from "@mui/material";
 import AddToHomeScreenIcon from "@mui/icons-material/AddToHomeScreen";
 import { Box } from "@mui/material";
@@ -7,6 +7,8 @@ import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import Notifications from "@mui/icons-material/Notifications";
 import { Avatar } from "@mui/material";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -21,12 +23,27 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const Icons = styled(Box)(({ theme }) => ({
-  display: "flex",
+  display: "none",
   gap: "20px",
   alignItems: "center",
+  [theme.breakpoints.up("sm")]:{
+    display: "flex"
+  }
 }));
 
+const UserBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  gap: "10px",
+  alignItems: "center",
+  [theme.breakpoints.up("sm")]:{
+    display: "none"
+  }
+}));
+
+
+
 export default function Navbar() {
+  const [open,setOpen] = useState(false)
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -46,11 +63,41 @@ export default function Navbar() {
           </Badge>
           <Avatar
             alt="Sandeep"
-            src="https://res.cloudinary.com/dawjtloik/image/upload/v1670395600/education_site/student-3_huc8y4.png"
+            src="https://res.cloudinary.com/dawjtloik/image/upload/v1675430905/my%20portfolio%20site/pic2_ujjfjr.png"
             sx={{ width: 30, height: 30 }}
+            onClick={e=>setOpen(true)}
           />
         </Icons>
+        <UserBox onClick={e=>setOpen(true)}>
+        <Avatar
+            alt="Sandeep"
+            src="https://res.cloudinary.com/dawjtloik/image/upload/v1675430905/my%20portfolio%20site/pic2_ujjfjr.png"
+            sx={{ width: 30, height: 30 }}
+          />
+          <Typography variant="span">Sand</Typography>
+        </UserBox>
       </StyledToolbar>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        open={open}
+        onClose = {e=>setOpen(false)}
+        // anchorEl={anchorEl}
+        
+        // onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>My account</MenuItem>
+        <MenuItem>Logout</MenuItem>
+      </Menu>
     </AppBar>
   );
 }
